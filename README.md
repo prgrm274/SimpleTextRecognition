@@ -8,7 +8,13 @@
 
 ### Using camera
 
-![1](https://github.com/prgrm274/SimpleTextRecognition/assets/43784511/8d36e6d2-03a0-4b1a-b65a-43596efd0509)
-![2](https://github.com/prgrm274/SimpleTextRecognition/assets/43784511/195c6921-8047-4b1d-bfae-b8bc63ae902c)
+Take an image that contains math expression
+
+![1](https://github.com/prgrm274/SimpleTextRecognition/assets/43784511/5641b99a-0cb6-4d44-83f6-d898dc3e001c)
+
+App will extract any first math expression in image
+
+![2](https://github.com/prgrm274/SimpleTextRecognition/assets/43784511/8f5f35df-6d98-424c-a29d-8e47e4657686)
+
 
 ### Using filesystem
