@@ -45,35 +45,43 @@ android {
         }
     }
 
-    flavorDimensions "theme", "functionality"
+    flavorDimensions "theme"//, "functionality"
 
     productFlavors {
-        red {
+        redCam { //red
             dimension "theme"
+//            dimension "functionality"
             buildConfigField("String", "APP_THEME", "\"red\"")
-            applicationId "com.programmer2704.simpletextrecognition.red"
-            manifestPlaceholders = [ appLabel: "MyRedApp" ]
+            buildConfigField("String", "APP_FUNCTIONALITY", "\"cam\"")
+            applicationId "com.programmer2704.simpletextrecognition.redcam"
+            manifestPlaceholders = [ appLabel: "RedCamApp" ]
         }
 
-        green {
+        redFile { //hello
             dimension "theme"
+//            dimension "functionality"
+            buildConfigField("String", "APP_THEME", "\"red\"")
+            buildConfigField("String", "APP_FUNCTIONALITY", "\"file\"")
+            applicationId "com.programmer2704.simpletextrecognition.redfile"
+            manifestPlaceholders = [ appLabel: "RedFileApp" ]
+        }
+
+        greenCam { //hi
+            dimension "theme"
+//            dimension "functionality"
             buildConfigField("String", "APP_THEME", "\"green\"")
-            applicationId "com.programmer2704.simpletextrecognition.green" // No matching client found for package name green
-            manifestPlaceholders = [ appLabel: "MyGreenApp" ]
+            buildConfigField("String", "APP_FUNCTIONALITY", "\"cam\"")
+            applicationId "com.programmer2704.simpletextrecognition.greencam"
+            manifestPlaceholders = [ appLabel: "GreenCamApp" ]
         }
 
-        hi {
-            dimension "functionality"
-            buildConfigField("String", "APP_FUNCTIONALITY", "\"hi\"")
-            applicationId "com.programmer2704.simpletextrecognition.hi"
-            manifestPlaceholders = [ appLabel: "MyHiApp" ]
-        }
-
-        hello {
-            dimension "functionality"
-            buildConfigField("String", "APP_FUNCTIONALITY", "\"hello\"")
-            applicationId "com.programmer2704.simpletextrecognition.hello" // No matching client found for package name hello
-            manifestPlaceholders = [ appLabel: "MyHelloApp" ]
+        greenFile { //green
+            dimension "theme"
+//            dimension "functionality"
+            buildConfigField("String", "APP_THEME", "\"green\"")
+            buildConfigField("String", "APP_FUNCTIONALITY", "\"file\"")
+            applicationId "com.programmer2704.simpletextrecognition.greenfile" // No matching client found for package name green
+            manifestPlaceholders = [ appLabel: "GreenFileApp" ]
         }
     }
 
