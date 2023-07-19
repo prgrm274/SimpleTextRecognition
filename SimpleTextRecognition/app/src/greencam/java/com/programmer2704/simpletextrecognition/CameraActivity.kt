@@ -27,7 +27,6 @@ import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-// geeks camera
 class CameraActivity : AppCompatActivity() {
     private val b: ActivityCameraBinding by lazy {
         ActivityCameraBinding.inflate(
