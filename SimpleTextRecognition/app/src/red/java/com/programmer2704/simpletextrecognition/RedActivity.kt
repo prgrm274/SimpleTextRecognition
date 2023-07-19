@@ -23,7 +23,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.programmer2704.simpletextrecognition.databinding.ActivityRedBinding
-import com.programmer2704.simpletextrecognition.geeksfor.GeeksCameraAct
+import com.programmer2704.simpletextrecognition.geeksfor.CameraAct
 import com.programmer2704.simpletextrecognition.medium.MediumArticleScanAct
 import java.io.File
 import java.io.IOException
