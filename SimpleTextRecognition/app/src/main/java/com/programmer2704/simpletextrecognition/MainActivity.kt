@@ -11,8 +11,13 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.programmer2704.simpletextrecognition.databinding.ActivityMainBinding
+import com.programmer2704.simpletextrecognition.geeksfor.CameraAct
+import com.programmer2704.simpletextrecognition.medium.MediumArticleScanAct
 import java.io.IOException
 
+/**
+ * Text recognition v
+ */
 class MainActivity : AppCompatActivity() {
     private val b: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -24,6 +29,14 @@ class MainActivity : AppCompatActivity() {
             BTN.setOnClickListener {
                 openActivityForResult()
             }
+            BTNToGeeksScanner.setOnClickListener {
+                startActivity(Intent(this@MainActivity, CameraAct::class.java))
+            }
+            BTNToMediumScanner.setOnClickListener {
+                startActivity(Intent(this@MainActivity, MediumArticleScanAct::class.java))
+            }
+//            val text = TVFlavorNType.text
+//            TVFlavorNType.text = "$text ${BuildConfig.FLAVOR} ${BuildConfig.BUILD_TYPE}"
         }
     }
 
