@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="2"
+    tools:context=".RedActivity">
+
+    <ImageView
+        android:id="@+id/IMG"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_image"
+        android:src="@mipmap/redfilesystem"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <Button
+            android:id="@+id/BTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Open gallery / explorer"
+            android:textAllCaps="false"
+            android:textColor="@color/purple_700" />
+
+        <TextView
+            android:id="@+id/TEXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_rounded1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:text="5 + 5" />
+
+        <TextView
+            android:id="@+id/TEXT_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rounded1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:text="10" />
+    </LinearLayout>
+
+    <!--<TextView
+        android:id="@+id/TV_flavor_n_type"
+        tools:text="BuildConfig.FLAVOR and TYPE"
+        android:text="@string/product_flavor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>-->
+</LinearLayout>

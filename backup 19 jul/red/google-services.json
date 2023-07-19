@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "406141517874",
+    "project_id": "simple-text-recognition",
+    "storage_bucket": "simple-text-recognition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406141517874:android:c199ac1a167c0c77593c2b",
+        "android_client_info": {
+          "package_name": "com.programmer2704.simpletextrecognition.red"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406141517874-puvhutgf7jfif9ibg7jv9kbsqoqa8acf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHn5mpuVPUlJi-bQOaECa89inVfjTurOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406141517874-puvhutgf7jfif9ibg7jv9kbsqoqa8acf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
