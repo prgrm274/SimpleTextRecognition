@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.activity.viewModels
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -34,6 +35,7 @@ class RedCameraActivity : AppCompatActivity() {
             layoutInflater
         )
     }
+    private val viewModel: RedCameraViewModel by viewModels()
 
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
@@ -68,6 +70,67 @@ class RedCameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+        // Get a stable reference of the modifiable image capture use case
+        val imageCapture = imageCapture ?: return
+
+        // Create time-stamped output file to hold the image
+        val photoFile = File(
+            outputDirectory,
+            SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis()) + ".jpg"
+        )
+
+        // Create output options object which contains file + metadata
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+        // Set up image capture listener, which is triggered after photo has been taken
+        // Modify the existing code to use the ViewModel for text recognition
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onError(exc: ImageCaptureException) {
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                }
+
+                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    val savedUri = Uri.fromFile(photoFile)
+
+                    // Set the saved uri to the image view
+                    b.ivCapture.visibility = View.VISIBLE
+                    b.ivCapture.setImageURI(savedUri)
+
+                    val msg = "Photo capture succeeded: $savedUri"
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+                    Log.d(TAG, msg)
+
+                    // Call the ViewModel to process the image
+                    viewModel.processImage(savedUri, applicationContext, object : RedCameraViewModel.TextRecognitionCallback {
+                        override fun onTextRecognitionComplete(expression: String?, result: Int?) {
+                            // Show the result
+                            runOnUiThread {
+                                if (result != null) {
+                                    b.TV.text = "Expression: $expression"
+                                    b.TVResult.text = "Result: $result"
+                                    Toast.makeText(this@RedCameraActivity, "Got the result!", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    b.TVResult.text = "No expression found in the image."
+                                }
+                            }
+                        }
+
+                        override fun onTextRecognitionFailed(error: String) {
+                            // Handle the error if text recognition fails
+                            runOnUiThread {
+                                Toast.makeText(this@RedCameraActivity, error, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                }
+            })
+    }
+
+
+    private fun takePhotoNovm() {
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
@@ -136,16 +199,6 @@ class RedCameraActivity : AppCompatActivity() {
                     }
                 }
             })
-    }
-
-    private fun calculateExpressionFromFile(operand1: Int, operator: String, operand2: Int): Int {
-        return when (operator) {
-            "+" -> operand1 + operand2
-            "-" -> operand1 - operand2
-            "*" -> operand1 * operand2
-            "/" -> operand1 / operand2
-            else -> throw IllegalArgumentException("Invalid operator: $operator")
-        }
     }
 
     // Helper function to extract the first simple arithmetic expression from the text
