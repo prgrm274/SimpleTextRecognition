@@ -87,36 +87,75 @@ class RedActivity : AppCompatActivity() {
 
                 val image: InputImage
                 try {
+//                    image = InputImage.fromFilePath(applicationContext, data.data!!)
+//                    val textRecognizer =
+//                        TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+//                    textRecognizer.process(image)
+//                        .addOnSuccessListener { visionText ->
+//                            // Task completed successfully
+//                            val resultText = visionText.text
+//                            for (block in visionText.textBlocks) {
+//                                val blockText = block.text
+//                                val blockCornerPoints = block.cornerPoints
+//                                val blockFrame = block.boundingBox
+//                                for (line in block.lines) {
+//                                    val lineText = line.text
+//                                    val lineCornerPoints = line.cornerPoints
+//                                    val lineFrame = line.boundingBox
+//                                    for (element in line.elements) {
+//                                        val elementText = element.text
+//                                        val elementCornerPoints = element.cornerPoints
+//                                        val elementFrame = element.boundingBox
+//                                        b.TEXT.append("${element.text} ")
+//                                        Log.d(TAG, element.text)
+//                                    }
+//                                    b.TEXT.append(" | ")
+//                                }
+//                                b.TEXT.append(" | ")
+//                            }
+//                            Log.d(TAG, "addOnSuccesssListener block")
+//                        }
+//                        .addOnFailureListener { e ->
+//                        }
+
                     image = InputImage.fromFilePath(applicationContext, data.data!!)
-                    val textRecognizer =
-                        TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+                    val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
                     textRecognizer.process(image)
                         .addOnSuccessListener { visionText ->
-                            // Task completed successfully
-                            val resultText = visionText.text
+                            var capturedExpression: Pair<String, String>? = null
+
                             for (block in visionText.textBlocks) {
-                                val blockText = block.text
-                                val blockCornerPoints = block.cornerPoints
-                                val blockFrame = block.boundingBox
                                 for (line in block.lines) {
                                     val lineText = line.text
-                                    val lineCornerPoints = line.cornerPoints
-                                    val lineFrame = line.boundingBox
-                                    for (element in line.elements) {
-                                        val elementText = element.text
-                                        val elementCornerPoints = element.cornerPoints
-                                        val elementFrame = element.boundingBox
-                                        b.TEXT.append("${element.text} ")
-                                        Log.d(TAG, element.text)
+                                    val expression = extractExpression(lineText)
+                                    if (expression != null) {
+                                        capturedExpression = expression
+                                        break  // Stop processing further lines
                                     }
-                                    b.TEXT.append("\n")
                                 }
-                                b.TEXT.append("\n")
+
+                                if (capturedExpression != null) {
+                                    break  // Stop processing further blocks
+                                }
                             }
-                            Log.d(TAG, "addOnSuccesssListener block")
+
+                            if (capturedExpression != null) {
+                                val (expression, result) = capturedExpression
+                                Log.d(TAG, expression)
+                                Log.d(TAG, result)
+                                b.TEXT.text = expression
+                                b.TEXTResult.text = result
+                            } else {
+                                Log.d(TAG, "No expression found")
+                                b.TEXT.text = "No expression found"
+                                b.TEXTResult.text = ""
+                            }
                         }
                         .addOnFailureListener { e ->
+                            // Handle failure
                         }
+
+
                 } catch (io: IOException) {
                     io.printStackTrace()
                 }
@@ -125,6 +164,35 @@ class RedActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun extractExpression(text: String): Pair<String, String>? {
+        val pattern = Regex("""(\d+)\s*([+\-*\/])\s*(\d+)""")
+        val matchResult = pattern.find(text)
+
+        if (matchResult != null) {
+            val operand1 = matchResult.groupValues[1]
+            val operator = matchResult.groupValues[2]
+            val operand2 = matchResult.groupValues[3]
+
+            val expression = "$operand1 $operator $operand2"
+            val result = calculateExpression(operand1.toInt(), operator, operand2.toInt()).toString()
+
+            return expression to result
+        }
+
+        return null
+    }
+
+    private fun calculateExpression(operand1: Int, operator: String, operand2: Int): Int {
+        return when (operator) {
+            "+" -> operand1 + operand2
+            "-" -> operand1 - operand2
+            "*" -> operand1 * operand2
+            "/" -> operand1 / operand2
+            else -> throw IllegalArgumentException("Invalid operator: $operator")
+        }
+    }
+
 
     companion object {
         private val TAG = "MainActivity"
