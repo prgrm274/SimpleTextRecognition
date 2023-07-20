@@ -17,6 +17,7 @@ App will extract any first math expression in image
 ![2](https://github.com/prgrm274/SimpleTextRecognition/assets/43784511/8f5f35df-6d98-424c-a29d-8e47e4657686)
 
 Red camera apk and green camera apk
+
 ![greencam](https://github.com/prgrm274/SimpleTextRecognition/assets/43784511/c9a40d18-ff1e-47fc-b4e2-5eeef356f675)
 
 ![redcam](https://github.com/prgrm274/SimpleTextRecognition/assets/43784511/39cc07e0-7ea7-4c66-a0ec-7785ffb67a5e)
